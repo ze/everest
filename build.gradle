@@ -1,0 +1,34 @@
+plugins {
+    id "java"
+    id "org.jetbrains.kotlin.jvm" version "1.2.71"
+}
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+sourceSets {
+    main.kotlin.srcDirs += 'src/main/kotlin'
+    main.java.srcDirs += 'src/main/java'
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "com.sparkjava:spark-core:2.8.0"
+    compile "com.sparkjava:spark-template-freemarker:2.7.1"
+    compile "org.mindrot:jbcrypt:0.3m"
+
+    compile "org.jetbrains.exposed:exposed:0.10.5"
+    compile "mysql:mysql-connector-java:8.0.11"
+
+    compile files("lib/sdk-0.1.0.jar")
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
