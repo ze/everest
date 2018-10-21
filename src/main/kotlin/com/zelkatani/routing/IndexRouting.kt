@@ -1,6 +1,6 @@
-package routing
+package com.zelkatani.routing
 
-import noSessionExists
+import com.zelkatani.noSessionExists
 import spark.ModelAndView
 import spark.Request
 import spark.Response

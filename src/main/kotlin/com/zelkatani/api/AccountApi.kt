@@ -1,12 +1,9 @@
-package api
+package com.zelkatani.api
 
-import AccountManager
-import HederaUtilities
-import Items
-import User
-import Users
-import Util
-import com.hedera.sdk.account.HederaAccount
+import com.zelkatani.Items
+import com.zelkatani.User
+import com.zelkatani.Users
+import com.zelkatani.Util
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.transactions.transaction
@@ -15,7 +12,6 @@ import spark.Request
 import spark.Response
 import java.io.File
 import java.util.concurrent.ThreadLocalRandom
-
 
 object AccountApi {
     private val objects = File(javaClass.classLoader.getResource("objects.txt").file).readLines()
@@ -28,7 +24,6 @@ object AccountApi {
         if (authUser != null) {
             val session = req.session(true)
             session.attribute("username", username)
-            session.attribute("hedera", AccountManager.hederaAccounts[authUser.id])
 
             res.redirect("/market/")
         } else {
@@ -57,12 +52,6 @@ object AccountApi {
             val hashedPassword = BCrypt.hashpw(pass, saltGen)
             val startingBalance = 10000L
 
-            val txQueryDefaults = HederaUtilities.txQueryDefaults
-            val hederaAccount = HederaAccount()
-            hederaAccount.txQueryDefaults = txQueryDefaults
-            hederaAccount.txQueryDefaults.generateRecord = false
-            hederaAccount.initialBalance = 10000L
-
             transaction {
                 val id = Users.insertAndGetId {
                     it[username] = uname
@@ -70,8 +59,6 @@ object AccountApi {
                     it[password] = hashedPassword
                     it[balance] = startingBalance
                 }
-
-                AccountManager[id] = hederaAccount
 
                 val items = takeTenRandomObjects()
                 items.forEach { str ->

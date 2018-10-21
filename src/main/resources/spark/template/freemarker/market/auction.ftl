@@ -28,9 +28,7 @@
             $("#items").change(function () {
                 let id = nameToId[$(this).val()];
                 $("#item_id").val(id);
-            });
-
-            $("#items").val(0);
+            }).val(0);
         </script>
         <div class="form-group">
             <label for="starting_price">Starting Price</label>

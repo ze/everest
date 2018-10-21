@@ -1,12 +1,6 @@
-package api
+package com.zelkatani.api
 
-import Auctions
-import Bid
-import Bids
-import Items
-import Users
-import Util
-import noSessionExists
+import com.zelkatani.*
 import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.update

@@ -1,10 +1,6 @@
-package api
+package com.zelkatani.api
 
-import Auction
-import Auctions
-import Bids
-import Util
-import noSessionExists
+import com.zelkatani.*
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.transactions.transaction
 import spark.Request

@@ -1,11 +1,14 @@
-import api.AccountApi
-import api.ItemApi
-import api.MarketApi
+package com.zelkatani
+
+import com.zelkatani.api.AccountApi
+import com.zelkatani.api.ItemApi
+import com.zelkatani.api.MarketApi
+import com.zelkatani.routing.AccountRouting
+import com.zelkatani.routing.IndexRouting
+import com.zelkatani.routing.MarketRouting
+import org.apache.log4j.BasicConfigurator
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.transactions.transaction
-import routing.AccountRouting
-import routing.IndexRouting
-import routing.MarketRouting
 import spark.Spark.*
 import spark.template.freemarker.FreeMarkerEngine
 
@@ -18,10 +21,11 @@ fun prepareDatabase() {
     Database.connect(
             "jdbc:mysql://127.0.0.1:3306/everest?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false",
             driver = "com.mysql.cj.jdbc.Driver",
-            user = "root", // hehehe hide this later
-            password = "z"
+            user = System.getenv("EVEREST_SERVER_USER"),
+            password = System.getenv("EVEREST_SERVER_PASSWORD")
     )
 
+    BasicConfigurator.configure()
     transaction {
         addLogger(StdOutSqlLogger)
         SchemaUtils.create(Markets, Auctions, Items, Bids, Users)

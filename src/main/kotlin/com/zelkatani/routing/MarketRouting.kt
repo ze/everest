@@ -1,16 +1,6 @@
-package routing
+package com.zelkatani.routing
 
-import Auction
-import Auctions
-import Bid
-import Bids
-import Item
-import Items
-import Market
-import User
-import Users
-import Util
-import noSessionExists
+import com.zelkatani.*
 import org.jetbrains.exposed.sql.and
 import org.jetbrains.exposed.sql.transactions.transaction
 import spark.ModelAndView
